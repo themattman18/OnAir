@@ -16,9 +16,15 @@ try:
         while True:
                 
                 try:
-                        testing = 'https://boxcast.tv/channel/lbdzh9yeuwejrgyuhgij'
-                        response = urllib.request.urlopen('http://lbctheodore.sermon.net/l/20137241')
-                        responseCode = response.getcode()
+                    response = requests.get('https://api.boxcast.com/broadcasts', params={
+                                  'q': 'timeframe:relevant',
+                                  's': '-starts_at',
+                                  'l': '5'
+                                }, headers={'Authorization': 'Bearer YKLCJ-EJHnFXV4TThF7YNPdkyz3ia29UmCJY3vZOB'}
+                    print response.json()
+                    testing = 'https://boxcast.tv/channel/lbdzh9yeuwejrgyuhgij'
+                    response = urllib.request.urlopen('http://lbctheodore.sermon.net/l/20137241')
+                    responseCode = response.getcode()
 
                         if responseCode == 200 :
                                 # Turn on the light
