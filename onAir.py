@@ -16,6 +16,7 @@ try:
         while True:
                 
                 try:
+                        testing = 'https://boxcast.tv/channel/lbdzh9yeuwejrgyuhgij'
                         response = urllib.request.urlopen('http://lbctheodore.sermon.net/l/20137241')
                         responseCode = response.getcode()
 
