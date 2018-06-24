@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-import urllib.request
+import onAirRequest
+import broadcastStatus
 import time
 import RPi.GPIO as GPIO
 
@@ -13,27 +14,26 @@ try:
         lightOutput = 24
         GPIO.setup(lightOutput, GPIO.OUT)
 
+        # Create the object for checking the url
+        checker = onAirRequest.Request()
+   
+
         while True:
                 
-                try:
-                    response = requests.get('https://api.boxcast.com/broadcasts', params={
-                                  'q': 'timeframe:relevant',
-                                  's': '-starts_at',
-                                  'l': '5'
-                                }, headers={'Authorization': 'Bearer YKLCJ-EJHnFXV4TThF7YNPdkyz3ia29UmCJY3vZOB'}
-                    print response.json()
-                    testing = 'https://boxcast.tv/channel/lbdzh9yeuwejrgyuhgij'
-                    response = urllib.request.urlopen('http://lbctheodore.sermon.net/l/20137241')
-                    responseCode = response.getcode()
 
-                        if responseCode == 200 :
-                                # Turn on the light
-                                GPIO.output(lightOutput, 1)
-                                #print("We are still streaming")
-                        else:
-                                # Turn off the light
-                                GPIO.output(lightOutput, 0)
-                                #print("Not streaming")
+                try:
+
+                    
+
+
+                    if checker.GetBroadcastStatus("") == broadcastStatus.broadcastStatus.OnAir :
+                            # Turn on the light
+                            GPIO.output(lightOutput, 1)
+                            #print("We are still streaming")
+                    else:
+                            # Turn off the light
+                            GPIO.output(lightOutput, 0)
+                            #print("Not streaming")
                         
                 except:
                         GPIO.output(lightOutput, 0)
