@@ -26,7 +26,7 @@ try:
                     
 
 
-                    if checker.GetBroadcastStatus("") == broadcastStatus.broadcastStatus.OnAir :
+                    if checker.GetBroadcastStatus("https://boxcast.tv/view/sunday-evening-service-875615") == broadcastStatus.broadcastStatus.OnAir :
                             # Turn on the light
                             GPIO.output(lightOutput, 1)
                             #print("We are still streaming")
