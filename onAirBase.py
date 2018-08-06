@@ -15,15 +15,15 @@ try:
         GPIO.setup(lightOutput, GPIO.OUT)
 
         # Create the object for checking the url
-        checker = onAirRequest.Request()
+        checker = onAirRequest.Request("https://boxcast.tv/view/sunday-evening-service-875615")
    
-
         while True:
                 
 
                 try:
-
                     
+                    
+                    print(checker.GetBroadcastStatus())
 
 
                     if checker.GetBroadcastStatus("https://boxcast.tv/view/sunday-evening-service-875615") == broadcastStatus.broadcastStatus.OnAir :

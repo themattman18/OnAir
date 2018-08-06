@@ -7,18 +7,21 @@ import broadcastStatus
 import requests
 
 class Request:
-
-    # Gets the current status of the broad cast
-    def GetBroadcastStatus(url):
-
-        currentStatus # Current status of the broadcast
-
-
+    
+    def __init__(self, url):
+        
         if not url:
             raise Exception("Please pass in a valid url")
-           
+        self.url = url
 
-        res = requests.get(url)
+    # Gets the current status of the broad cast
+    def GetBroadcastStatus(self):
+
+        #currentStatus = Nothing # Current status of the broadcast
+
+        res = requests.get(self.url)
+        
+        print(res)
 
         if res.status == "boadcasting":
             currentStatus = broadcastStatus.broadcastStatus.OnAir
