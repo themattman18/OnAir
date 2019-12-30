@@ -1,14 +1,12 @@
 import time
-import RPi.GPIO as GPIO
+from gpiozero import LED
 import sys
 
 try:
 
 	# Setup the io pins
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setwarnings(False)
 	lightOutput = 24
-	GPIO.setup(lightOutput, GPIO.OUT)
+	led = LED(lightOutput)
 	
 	userInput = input("1 = ON; 0 = OFF; Q = Quit:   ")
 
@@ -20,15 +18,15 @@ try:
 
 			if userInput == "1" :
 				# Turn on the light
-				GPIO.output(lightOutput, 1)
+				led.on()
 				print("Turned the light on")
 			else:
 				# Turn off the light
-				GPIO.output(lightOutput, 0)
+				led.off()
 				print("Turned the light off")
 
 		except:
-			GPIO.output(lightOutput, 0)
+			led.off()
 			exceptionType  = sys.exc_info()[0]
 			exceptionValue = sys.exc_info()[1]
 			exceptionTrace = sys.exc_info()[2]
