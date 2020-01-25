@@ -5,6 +5,8 @@ import urllib.request
 import time
 import broadcastStatus
 import requests
+import json
+import datetime
 
 class Request:
     
@@ -20,15 +22,45 @@ class Request:
         #currentStatus = Nothing # Current status of the broadcast
 
         res = requests.get(self.url)
-        
-        print(res)
+        jsonDictionary = self.ParseResponse(res.text)
 
-        if res.status == "boadcasting":
+
+        currentTime = datetime.datetime.utcnow()
+        startsAt = datetime.datetime.strptime(jsonDictionary["broadcast"]["data"]["starts_at"], "%Y-%m-%dT%H:%M:%SZ")  
+        stopsAt = datetime.datetime.strptime(jsonDictionary["broadcast"]["data"]["stops_at"], "%Y-%m-%dT%H:%M:%SZ")  
+        
+        #print(currentTime >= startsAt)
+        #print(currentTime =< stopsAt)
+
+    
+        if currentTime > startsAt and currentTime < stopsAt:
             currentStatus = broadcastStatus.broadcastStatus.OnAir
         else :
             currentStatus = broadcastStatus.broadcastStatus.OffAir
 
         return currentStatus
+
+
+    def ParseResponse(self, input):
+
+        jsonLocation = input.find("var BOXCAST_PRELOAD = ")
+        jsonDictionary = None
+
+        if jsonLocation != -1 :
+            truncatedStart = input[jsonLocation + len("var BOXCAST_PRELOAD = "):]
+            jsonEnd = truncatedStart.find("</script>")
+            finalStr = truncatedStart[0:jsonEnd]
+            finalStr = finalStr.replace("\n ", "")
+            finalStr = finalStr.replace("channel:", "\"channel\":")
+            finalStr = finalStr.replace("broadcast:", "\"broadcast\":")
+            finalStr = finalStr.replace("broadcasts:", "\"broadcasts\":")
+            finalStr = finalStr.replace("view:", "\"view\":")
+            finalStr = finalStr.replace("},     };", "} }")
+            jsonDictionary = json.loads(finalStr)
+        
+        return jsonDictionary
+
+
 
 
 

@@ -16,7 +16,7 @@ try:
         lightOutput = 24
         #GPIO.setup(lightOutput, GPIO.OUT)
 
-        led = LED(lightOutput)
+        #led = LED(lightOutput)
 
 
         # Create the object for checking the url
@@ -27,23 +27,17 @@ try:
 
                 try:
                     
-                    
-                    print(checker.GetBroadcastStatus())
-
-
                     if checker.GetBroadcastStatus() == broadcastStatus.broadcastStatus.OnAir :
                             # Turn on the light
                             leg.on()
                             #print("We are still streaming")
                     else:
                             # Turn off the light
-                            #GPIO.output(lightOutput, 0)
                             led.off()
                             #print("Not streaming")
                         
                 except:
-                        led.off()
-                        #GPIO.output(lightOutput, 0)
+                        #led.off()
                         exceptionType  = sys.exc_info()[0]
                         exceptionValue = sys.exc_info()[1]
                         exceptionTrace = sys.exc_info()[2]
@@ -63,7 +57,3 @@ except:
         print("Trace: %s" % exceptionTrace)
 finally:
         print("end")
-        #GPIO.cleanup()
-
-
-
