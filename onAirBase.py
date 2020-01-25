@@ -11,12 +11,8 @@ from gpiozero import LED
 try:
 
         # Setup the io pins
-        #GPIO.setmode(GPIO.BCM) 
-        #GPIO.setwarnings(False)
         lightOutput = 24
-        #GPIO.setup(lightOutput, GPIO.OUT)
-
-        #led = LED(lightOutput)
+        led = LED(lightOutput)
 
 
         # Create the object for checking the url
@@ -29,7 +25,7 @@ try:
                     
                     if checker.GetBroadcastStatus() == broadcastStatus.broadcastStatus.OnAir :
                             # Turn on the light
-                            leg.on()
+                            led.on()
                             #print("We are still streaming")
                     else:
                             # Turn off the light
@@ -37,7 +33,7 @@ try:
                             #print("Not streaming")
                         
                 except:
-                        #led.off()
+                        led.off()
                         exceptionType  = sys.exc_info()[0]
                         exceptionValue = sys.exc_info()[1]
                         exceptionTrace = sys.exc_info()[2]
