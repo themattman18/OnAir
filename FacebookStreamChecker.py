@@ -8,7 +8,7 @@ import requests
 import json
 import datetime
 
-class Request:
+class Request():
     
     def __init__(self, url):
         
@@ -29,10 +29,6 @@ class Request:
         startsAt = datetime.datetime.strptime(jsonDictionary["broadcast"]["data"]["starts_at"], "%Y-%m-%dT%H:%M:%SZ")  
         stopsAt = datetime.datetime.strptime(jsonDictionary["broadcast"]["data"]["stops_at"], "%Y-%m-%dT%H:%M:%SZ")  
         
-        #print(currentTime >= startsAt)
-        #print(currentTime =< stopsAt)
-
-    
         if currentTime > startsAt and currentTime < stopsAt:
             currentStatus = broadcastStatus.broadcastStatus.OnAir
         else :
