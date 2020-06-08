@@ -8,7 +8,7 @@ import requests
 import json
 import datetime
 
-class Request():
+class FacebookStreamChecker():
     
     def __init__(self, url):
         

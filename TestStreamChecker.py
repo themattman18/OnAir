@@ -1,7 +1,7 @@
 import sys
 import broadcastStatus
 
-class TestChecker():
+class TestStreamChecker():
 
 	def GetBroadcastStatus(self):
 
