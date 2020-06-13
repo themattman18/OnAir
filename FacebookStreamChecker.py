@@ -36,6 +36,9 @@ class FacebookStreamChecker():
 
         return currentStatus
 
+    # I currently don't have a good way to quit the Facebook checker
+    def QuitProgram(self):
+        return False
 
     def ParseResponse(self, input):
 

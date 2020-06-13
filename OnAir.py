@@ -10,32 +10,25 @@ import time
 
 
 try:
-        
         parser = argparse.ArgumentParser(description='Starts the On Air light')
-        parser.add_argument("-mode", help="The mode to start the program in. T for test, F for facebook", choices=["F", "T"], default="T")
-        parser.add_argument("-gpio", help="The GPIO pin on the PI that controls the light", default=24)
+        parser.add_argument("--mode", help="The mode to start the program in. T for test, F for facebook", choices=["F", "T"], default="T")
+        parser.add_argument("--gpio", help="The GPIO pin on the PI that controls the light", default=24)
+        parser.add_argument("--url", help="If using Facebook, this is the url for the stream", default="")
         # parser.add_argument("sleep", help="Time in seconds to sleep in between checking the stream")
-        # # parser.add_argument('integers', metavar='N', type=int, nargs='+', help='an integer for the accumulator')
-        # # parser.add_argument('--sum', dest='accumulate', action='store_const', const=sum, default=max, help='sum the integers (default: find the max)')
         args = parser.parse_args()
 
-        # print(args.url)
-        #args = parser.parse_args()
-        #print args.accumulate(args.integers)
-        #print args.accumulate(args.integers)
-
-        #args = sys.argv[1:]
-        #fffff = getopt.getopt(args, "-p -t")
-        #getopt.getopt(args, options, [long_options])
 
         # Setup the io pins
-        lightOutput = 24
+        lightOutput = args.gpio
         #led = LED(lightOutput)
         led = 0
         streamChecker = TestStreamChecker()
 
         if args.mode == "F":
-                streamChecker = FacebookStreamChecker()
+                if not args.url :
+                        raise Exception("Url is requried if using Facebook")
+
+                streamChecker = FacebookStreamChecker(args.url)
         else:
                 steamChecker = TestStreamChecker()
        
