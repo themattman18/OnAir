@@ -11,12 +11,13 @@ import time
 
 try:
         
-        # parser = argparse.ArgumentParser(description='Starts the On Air light')
-        # parser.add_argument("url", help="The embed URL for the boxcast stream")
+        parser = argparse.ArgumentParser(description='Starts the On Air light')
+        parser.add_argument("-mode", help="The mode to start the program in. T for test, F for facebook", choices=["F", "T"], default="T")
+        parser.add_argument("-gpio", help="The GPIO pin on the PI that controls the light", default=24)
         # parser.add_argument("sleep", help="Time in seconds to sleep in between checking the stream")
         # # parser.add_argument('integers', metavar='N', type=int, nargs='+', help='an integer for the accumulator')
         # # parser.add_argument('--sum', dest='accumulate', action='store_const', const=sum, default=max, help='sum the integers (default: find the max)')
-        # args = parser.parse_args()
+        args = parser.parse_args()
 
         # print(args.url)
         #args = parser.parse_args()
@@ -30,14 +31,13 @@ try:
         # Setup the io pins
         lightOutput = 24
         #led = LED(lightOutput)
-        foo = 0
         led = 0
         streamChecker = TestStreamChecker()
 
-        # if foo == 1:
-        #         streamChecker = FacebookStreamChecker()
-        # else:
-        #         steamChecker = TestStreamChecker()
+        if args.mode == "F":
+                streamChecker = FacebookStreamChecker()
+        else:
+                steamChecker = TestStreamChecker()
        
 
         # Create the object for checking the url
