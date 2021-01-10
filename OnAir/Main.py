@@ -25,7 +25,7 @@ try:
         #print(f'Options Tuple is {opts}')
 
         lightOutput = args.gpio
-        sleepTime = args.sleepTime
+        sleepTime = int(args.sleepTime)
 
         # Setup the io pins
         led = LED(lightOutput)
@@ -41,11 +41,11 @@ try:
                     if checker.GetBroadcastStatus() == broadcastStatus.BroadcastStatus.OnAir :
                             # Turn on the light
                             led.on()
-                            #print("We are still streaming")
+                            print("We are still streaming")
                     else:
                             # Turn off the light
                             led.off()
-                            #print("Not streaming")
+                            print("Not streaming")
                         
                 except:
                         led.off()

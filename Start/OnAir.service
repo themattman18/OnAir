@@ -3,7 +3,7 @@ Description=On Air Light
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u onAirBase.py
+ExecStart=/usr/bin/python3 -u Main.py
 WorkingDirectory=/opt/OnAir
 StandardOutput=inherit
 StandardError=inherit
