@@ -12,3 +12,6 @@ To build this project you'll need the following:
 The power switch tail needs to be setup on on GPIO pin 24 on the PI. (https://pinout.xyz/#)
 
 The current implementation is checking a stream hosted by BoxCast but feel free to fork this project and add additional streaming providers.
+
+
+This is only compatible with Python3
