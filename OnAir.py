@@ -6,7 +6,7 @@ from FacebookStreamChecker import FacebookStreamChecker
 from TestStreamChecker import TestStreamChecker
 import broadcastStatus
 import time
-#from gpiozero import LED
+from gpiozero import LED
 
 
 try:
@@ -20,8 +20,8 @@ try:
 
         # Setup the io pins
         lightOutput = args.gpio
-        #led = LED(lightOutput)
-        led = 0
+        led = LED(lightOutput)
+        #led = 0
         streamChecker = TestStreamChecker()
 
         if args.mode == "F":
@@ -44,12 +44,12 @@ try:
                     
                     if streamChecker.GetBroadcastStatus() == broadcastStatus.broadcastStatus.OnAir :
                             # Turn on the light
-                            led = 1
-                            #led.on()
+                            #led = 1
+                            led.on()
                     else:
                             # Turn off the light
-                            led = 0
-                            #led.off()                        
+                            #led = 0
+                            led.off()                        
                 except:
                         led.off()
                         exceptionType  = sys.exc_info()[0]
@@ -61,7 +61,7 @@ try:
                                 print("Value: %s" % exceptionValue)
                                 print("Trace: %s" % exceptionTrace)
                         
-                time.sleep(60)
+                #time.sleep(60)
 except:
         exceptionType  = sys.exc_info()[0]
         exceptionValue = sys.exc_info()[1]
