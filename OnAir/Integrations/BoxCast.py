@@ -39,6 +39,7 @@ class BoxCast:
                                 'scope': 'owner',
                                 }, 
                                 auth=(self.clientID, self.clientSecret))
+        print(response.json())
         self.authToken = response.json()['access_token']
 
     # Gets the current status of the broad cast
@@ -46,10 +47,13 @@ class BoxCast:
         
         testRsp = requests.get(self.broadcastUrl + "/account/boxcasters/", 
                                 headers={'Authorization': 'Bearer ' + self.authToken})
-            
-        if testRsp.json()['status'] == 'broadcasting' :
+        print("Got the status")
+        print(testRsp.json()[0]['status'])
+        print(testRsp.json()[0]['status'] == 'broadcasting')
+        if testRsp.json()[0]['status'] == 'broadcasting' :
             currentStatus = BroadcastStatus.OnAir
         else :
             currentStatus = BroadcastStatus.OffAir
 
+        print("exit")
         return currentStatus
