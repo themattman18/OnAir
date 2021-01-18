@@ -27,7 +27,7 @@ try:
 
         # Create the object for checking the url
         checker = BoxCast.BoxCast(args.boxCasterID, args.clientID, args.clientSecret)
-        print("Staring Loop")
+        print("Starting Loop")
         while True:
                 
 
@@ -35,12 +35,11 @@ try:
                     print("About to check the status")
                     if checker.GetBroadcastStatus() == broadcastStatus.BroadcastStatus.OnAir :
                         # Turn on the light
-                        #GPIO.output(24, GPIO.HIGH)
-                        print("We are still streaming")
+                        #print("We are still streaming")
                         led.on()
                     else :
                         # Turn off the light
-                        print("Not streaming")
+                        #print("Not streaming")
                         led.off()
                         
                 except:

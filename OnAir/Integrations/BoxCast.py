@@ -43,9 +43,9 @@ class BoxCast:
         
         testRsp = requests.get(self.broadcastUrl + "/account/boxcasters/", 
                                 headers={'Authorization': 'Bearer ' + self.authToken})
-        print("Got the status")
-        print(testRsp.json()[0]['status'])
-        print(testRsp.json()[0]['status'] == 'broadcasting')
+        #print("Got the status")
+        #print(testRsp.json()[0]['status'])
+        #print(testRsp.json()[0]['status'] == 'broadcasting')
 
         if testRsp.json()[0]['status'] == 'broadcasting' :
             currentStatus = BroadcastStatus.OnAir
