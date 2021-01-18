@@ -19,12 +19,7 @@ try:
 
         args = parser.parse_args()
 
-
- 
-        # list of options tuple (opt, value)
-        #print(f'Options Tuple is {opts}')
-
-        lightOutput = args.gpio
+        lightOutput = int(args.gpio)
         sleepTime = int(args.sleepTime)
 
         # Setup the io pins
@@ -32,23 +27,24 @@ try:
 
         # Create the object for checking the url
         checker = BoxCast.BoxCast(args.boxCasterID, args.clientID, args.clientSecret)
-   
+        print("Staring Loop")
         while True:
                 
 
                 try:
-                    
+                    print("About to check the status")
                     if checker.GetBroadcastStatus() == broadcastStatus.BroadcastStatus.OnAir :
-                            # Turn on the light
-                            led.on()
-                            print("We are still streaming")
-                    else:
-                            # Turn off the light
-                            led.off()
-                            print("Not streaming")
+                        # Turn on the light
+                        #GPIO.output(24, GPIO.HIGH)
+                        print("We are still streaming")
+                        led.on()
+                    else :
+                        # Turn off the light
+                        print("Not streaming")
+                        led.off()
                         
                 except:
-                        led.off()
+                        #led.off()
                         exceptionType  = sys.exc_info()[0]
                         exceptionValue = sys.exc_info()[1]
                         exceptionTrace = sys.exc_info()[2]

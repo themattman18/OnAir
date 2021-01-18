@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-#from OnAir.Integrations.broadcastStatus import BroadcastStatus
-
-#import BroadcastStatus
-#from OnAir.Integrations.broadcastStatus import BroadcastStatus
 import requests
 import json
 import datetime
@@ -39,6 +35,7 @@ class BoxCast:
                                 'scope': 'owner',
                                 }, 
                                 auth=(self.clientID, self.clientSecret))
+        print(response.json())
         self.authToken = response.json()['access_token']
 
     # Gets the current status of the broad cast
@@ -46,7 +43,10 @@ class BoxCast:
         
         testRsp = requests.get(self.broadcastUrl + "/account/boxcasters/", 
                                 headers={'Authorization': 'Bearer ' + self.authToken})
-            
+        print("Got the status")
+        print(testRsp.json()[0]['status'])
+        print(testRsp.json()[0]['status'] == 'broadcasting')
+
         if testRsp.json()[0]['status'] == 'broadcasting' :
             currentStatus = BroadcastStatus.OnAir
         else :
