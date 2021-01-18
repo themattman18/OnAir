@@ -46,10 +46,15 @@ class BoxCast:
         #print("Got the status")
         #print(testRsp.json()[0]['status'])
         #print(testRsp.json()[0]['status'] == 'broadcasting')
-
-        if testRsp.json()[0]['status'] == 'broadcasting' :
-            currentStatus = BroadcastStatus.OnAir
+        if isinstance(testRsp.json(), list) :
+            if testRsp.json()[0]['status'] == 'broadcasting' :
+                currentStatus = BroadcastStatus.OnAir
+            else :
+                currentStatus = BroadcastStatus.OffAir
         else :
-            currentStatus = BroadcastStatus.OffAir
+            if testRsp.json()["error"] == "invalid_token" :
+                currentStatus = BroadcastStatus.AuthTimeout
+            else :
+                raise Exception("Unknown response " + testRsp.json())
 
         return currentStatus
