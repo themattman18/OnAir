@@ -30,18 +30,20 @@ try:
         print("Starting Loop")
         while True:
                 
-
                 try:
                     print("About to check the status")
-                    if checker.GetBroadcastStatus() == broadcastStatus.BroadcastStatus.OnAir :
+                    currentStatus = checker.GetBroadcastStatus()
+                    if currentStatus == broadcastStatus.BroadcastStatus.OnAir :
                         # Turn on the light
                         #print("We are still streaming")
                         led.on()
-                    else :
-                        # Turn off the light
-                        #print("Not streaming")
+                    elif currentStatus == broadcastStatus.BroadcastStatus.OffAir :
                         led.off()
-                        
+                    elif currentStatus == broadcastStatus.BroadcastStatus.AuthTimeout :
+                        checker.PopulateAuthToken()     
+                    else :
+                        raise Exception("Unknown status" + currentStatus)
+
                 except:
                         #led.off()
                         exceptionType  = sys.exc_info()[0]

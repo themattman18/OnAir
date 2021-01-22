@@ -29,7 +29,10 @@ class BoxCast:
         self.clientID = clientID
         self.clientSecret = clientSecret
         self.boxCasterID = boxCasterID
-
+        self.PopulateAuthToken()
+        
+    # Populates the auth token
+    def PopulateAuthToken(self):
         response = requests.post(self.authUrl, data={
                                 'grant_type': 'client_credentials',
                                 'scope': 'owner',
